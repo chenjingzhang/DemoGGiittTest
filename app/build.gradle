@@ -10,11 +10,42 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs{
+        config{
+            storeFile file('./zxysigned.jks')
+            storePassword '123456'
+            keyAlias 'zxysigned'
+            keyPassword '123456'
+        }
+    }
+
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
+    }
+
+    productFlavors{
+        official {}
+        samsung {}
+        huawei {}
+        xiaomi {}
+        meizu {}
+        oppo {}
+        vivo {}
+        smartisan {}
+        yingyongbao {}
+        gfanmarket {}
+        qh360 {}
+        baidu {}
+
+    }
+    //    //批量配置
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
 }
 

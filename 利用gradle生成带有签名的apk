@@ -1,0 +1,48 @@
+1.编辑 app/build.gradle文件
+  在android必包中添加
+  signingConfigs{
+        config{
+            storeFile file('./zxysigned.jks')
+            storePassword '123456'
+            keyAlias 'zxysigned'
+            keyPassword '123456'
+        }
+    }
+
+  在生成正式版apk的时候去应用这个配置
+
+  signingConfig signingConfigs.config
+
+ 先双击清理当前项目
+ 然后双击右侧工具栏gradle->tasks->build->assemableRelease（assembleDubug用于生成测试版的apk文件，assembleRelease用于生成正式版的apk文件，assemble用于同时生成测试版和正式版的apk文件）
+ 提示build successful 说明assemableRelease执行成功，apk文件会自动生成在app/build/outputs/apk目录下
+
+
+  signingConfigs{
+         config{
+             storeFile file('./zxysigned.jks')
+             storePassword '123456'
+             keyAlias 'zxysigned'
+             keyPassword '123456'
+         }
+     }
+
+     buildTypes {
+         release {
+             minifyEnabled false
+             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+             signingConfig signingConfigs.config
+         }
+     }
+
+
+目前keystore文件的所有信息都是以明文的形式直接配置在build.gradle中的，不太安全。
+优化：
+将这类敏感的数据配置在一个独立的文件里面，然后再在build.gradle中去这些数据
+
+2 多渠道打包
+
+https://www.cnblogs.com/ldq2016/p/7568906.html
+
+
+

@@ -1,0 +1,61 @@
+1.关于.gitignore文件
+  默认情况下这部分内容都是不会被添加到版本控制当中的
+2.查看修改的内容 git status
+3.查看更改的具体变化  git diff
+  git diff 包名.类名
+4.撤销未提交的修改
+  git checkout 包名.类名
+  然后重新运行 git status 检查一下状态
+
+5.查看提交记录
+  git log
+
+6.使用分支
+
+ git branch version1.0     创建一个名为version1.0的分支，目前代码还在master分支上
+ git branch  查看代码在哪个分支上，前面带*的分支说明代码在那个分支上。
+
+ git checkout version1.0   切换到version1.0的分支上去
+ git branch
+
+
+ version1.0分支上提交的代码不会影响到master分支，同理master分支上修改并提交的代码也不会影响到version1.0上
+ 最好的方法是使用merge命令来完成合并操作
+
+ git checkout master
+ git merge version1.0
+ 将version1.0分支上修改并提交的内容合并到master分支上。
+
+如果不需要一个分支，可以将这个分支给删除掉
+git branch -D version1.0   删除version1.0这个分支
+
+
+7.1使用git进行团队开发，首先需要有一个远程的版本库，团队每个成员都从这个版本库中获取最原始的代码
+  例如远程版本库git的地址为： https://github.com/chenjingzhang/DemoGGiittTest.git
+
+  1将代码下载到本地
+   git clone https://github.com/chenjingzhang/DemoGGiittTest.git
+
+  2之后你在这份代码的基础上进行了一些修改和提交，将本地修改的内容同步到远程版本库上
+   git push origin master
+
+   origin指定的是远程版本库的git地址  master指定的是同步到哪一个分支上
+   上述命令就完成了将本地代码同步到https://github.com/chenjingzhang/DemoGGiittTest.git这个版本库的master分支上的功能
+
+7.2将远程库上的修改同步到本地 两种命令
+
+   git fetch origin master
+   将远程版本库上的代码同步到本地，不过同步下来的代码不会合并到任何的分支上，而是会存放到一个origin/master的分支上
+   这时可以使用diff命令来查看远程版本库上都改了什么
+   git diff origin/master
+   之后再调用merge命令将origin/master分支上的修改合并到主分支上
+   git merge origin/master
+
+https://github.com/chenjingzhang/DemoGGiittTest.git
+
+   而pull命令相当于将fetch和diff这两个命令放在一起之心过了，它可以从远程版本库上获取最新的代码并且合并到本地
+   git pull origin master
+
+
+
+
